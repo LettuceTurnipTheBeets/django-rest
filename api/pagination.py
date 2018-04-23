@@ -1,4 +1,4 @@
-from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import LimitOffsetPagination, BasePagination
 from rest_framework.response import Response
 
 class CustomListPagination(LimitOffsetPagination):
@@ -9,7 +9,7 @@ class CustomListPagination(LimitOffsetPagination):
             'list': data,
         })
 
-class CustomDetailPagination(LimitOffsetPagination):
+class CustomDetailPagination(BasePagination):
     """Force pagination on Detail views"""
     def get_paginated_response(self, data):
         return Response({

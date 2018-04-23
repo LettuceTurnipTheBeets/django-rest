@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'api',
 ]
 
+# Django Rest Framework settings
+
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 }
