@@ -22,4 +22,4 @@ class AnimalDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Animal
-        fields = ('id', 'commonName', 'scientificName', 'family', 'imageURL')
+        fields = '__all__'

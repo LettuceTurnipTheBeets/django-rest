@@ -1,6 +1,6 @@
 from api.models import Animal
 from api.serializers import AnimalListSerializer, AnimalDetailSerializer
-from api.pagination import CustomDetailPagination, CustomListPagination
+from api.pagination import CustomListPagination
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,14 +12,33 @@ class AnimalList(generics.ListAPIView):
     serializer_class = AnimalListSerializer
     pagination_class = CustomListPagination
 
-class AnimalDetail(generics.RetrieveAPIView):
+#class AnimalDetail(generics.RetrieveAPIView):
+#    """/ID/$/ GET show the detail view of one animal object"""
+#    queryset = Animal.objects.all()
+#    serializer_class = AnimalDetailSerializer
+#    pagination_class = CustomDetailPagination
+
+@api_view(['GET'])
+def AnimalDetail(request, pk):
     """/ID/$/ GET show the detail view of one animal object"""
-queryset = Animal.objects.all()
-    serializer_class = AnimalDetailSerializer
-    pagination_class = CustomDetailPagination
+    try:
+        animal = Animal.objects.get(pk=pk)
+    except Animal.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    content = {'status': "OK",
+        'animal': {'id': animal.id,
+            'commonName': animal.commonName,
+            'scientificName': animal.scientificName,
+            'family': animal.family,
+            'imageURL': animal.imageURL
+        }
+    }
+
+    return Response(content)
 
 class AnimalCreate(generics.CreateAPIView):
-    """/Create/ POST create an animal object instance
+    """/Create/ POST create an animal object instance"""
     queryset = Animal.objects.all()
     serializer_class = AnimalDetailSerializer
 
@@ -28,7 +47,6 @@ def AnimalDelete(request, pk):
     """/Delete/$/ POST delete an animal object instance"""
     try:
         animal = Animal.objects.get(pk=pk)
-        print(animal.id)
     except Animal.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
