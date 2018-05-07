@@ -1,12 +1,9 @@
+from django.urls import path, re_path
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 from api import views
 
-urlpatterns = [
-    url(r'^Animal/List/$', views.AnimalList.as_view()),
-    url(r'^Animal/Id/(?P<pk>[0-9]+)/$', views.AnimalDetail),
-    url(r'^Animal/Create/$', views.AnimalCreate.as_view()),
-    url(r'^Animal/Delete/(?P<pk>[0-9]+)/$', views.AnimalDelete),
-]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = format_suffix_patterns([
+    path('Animal/List/', views.AnimalList.as_view()),
+    re_path('Animal/Id/(?P<pk>[0-9]+)/$', views.AnimalDetail.as_view()),
+])

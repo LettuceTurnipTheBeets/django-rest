@@ -1,0 +1,32 @@
+[
+  {
+    "model": "api.animal",
+    "pk": 1,
+    "fields": {
+      "commonName": "Pikachu",
+      "family": "Electric",
+      "imageURL": "http://cartoonbros.com/wp-content/uploads/2016/08/pikachu-13.png",
+      "scientificName": "Peek at You"
+    }
+  },
+  {
+    "model": "api.animal",
+    "pk": 2,
+    "fields": {
+      "commonName": "Charizard",
+      "family": "Fire",
+      "imageURL": "http://cdn.bulbagarden.net/upload/thumb/2/2a/Pokk%C3%A9n_Charizard.png/220px-Pokk%C3%A9n_Charizard.png",
+      "scientificName": "(char*)izard"
+    }
+  },
+  {
+    "model": "api.animal",
+    "pk": 3,
+    "fields": {
+      "commonName": "Cat",
+      "family": "Memes",
+      "imageURL": "https://yt3.ggpht.com/-V92UP8yaNyQ/AAAAAAAAAAI/AAAAAAAAAAA/zOYDMx8Qk3c/s900-c-k-no-mo-rj-c0xffffff/photo.jpg",
+      "scientificName": "Internetz cat (grumpy cat)"
+    }
+  }
+]

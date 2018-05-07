@@ -1,55 +1,31 @@
 from api.models import Animal
-from api.serializers import AnimalListSerializer, AnimalDetailSerializer
-from api.pagination import CustomListPagination
-from rest_framework import generics, status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from api.serializers import AnimalThreeSerializer, AnimalAllSerializer
+from rest_framework import generics
 
 
-class AnimalList(generics.ListAPIView):
-    """/List/ GET List all animal objects"""
+class AnimalList(generics.ListCreateAPIView):
+    """Read or write endpoint to represent a collection of Animal instances.
+    /List/
+    GET:
+        list all Animal instances.
+    POST:
+        create one Animal instance.
+    """
     queryset = Animal.objects.all()
-    serializer_class = AnimalListSerializer
-    pagination_class = CustomListPagination
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return AnimalThreeSerializer
+        if self.request.method == 'POST':
+            return AnimalAllSerializer
 
-#class AnimalDetail(generics.RetrieveAPIView):
-#    """/ID/$/ GET show the detail view of one animal object"""
-#    queryset = Animal.objects.all()
-#    serializer_class = AnimalDetailSerializer
-#    pagination_class = CustomDetailPagination
 
-@api_view(['GET'])
-def AnimalDetail(request, pk):
-    """/ID/$/ GET show the detail view of one animal object"""
-    try:
-        animal = Animal.objects.get(pk=pk)
-    except Animal.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    content = {'status': "OK",
-        'animal': {'id': animal.id,
-            'commonName': animal.commonName,
-            'scientificName': animal.scientificName,
-            'family': animal.family,
-            'imageURL': animal.imageURL
-        }
-    }
-
-    return Response(content)
-
-class AnimalCreate(generics.CreateAPIView):
-    """/Create/ POST create an animal object instance"""
+class AnimalDetail(generics.RetrieveDestroyAPIView):
+    """Read or delete endpoint to represent a single Animal instance.
+    /ID/$/
+    GET:
+        list a single Animal instance.
+    DELETE:
+        delete one Animal instance.
+    """
     queryset = Animal.objects.all()
-    serializer_class = AnimalDetailSerializer
-
-@api_view(['POST'])
-def AnimalDelete(request, pk):
-    """/Delete/$/ POST delete an animal object instance"""
-    try:
-        animal = Animal.objects.get(pk=pk)
-    except Animal.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    animal.delete()
-
-    return Response(status=status.HTTP_200_OK)
+    serializer_class = AnimalAllSerializer
