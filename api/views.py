@@ -12,6 +12,7 @@ class AnimalList(generics.ListCreateAPIView):
         create one Animal instance.
     """
     queryset = Animal.objects.all()
+
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return AnimalThreeSerializer
