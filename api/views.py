@@ -16,7 +16,7 @@ class AnimalList(generics.ListCreateAPIView):
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return AnimalThreeSerializer
-        if self.request.method == 'POST':
+        elif self.request.method == 'POST':
             return AnimalAllSerializer
 
 
